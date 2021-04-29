@@ -1,4 +1,4 @@
-package br.com.digitalhouse.desafiomarvel.view
+package br.com.digitalhouse.desafiomarvel.ui.view
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

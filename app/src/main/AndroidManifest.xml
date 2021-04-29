@@ -9,8 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DesafioMarvel">
-        <activity android:name=".authentication.LoginActivity"></activity>
-        <activity android:name=".view.MainActivity">
+        <activity android:name="br.com.digitalhouse.desafiomarvel.ui.authentication.LoginActivity"></activity>
+        <activity android:name="br.com.digitalhouse.desafiomarvel.ui.view.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

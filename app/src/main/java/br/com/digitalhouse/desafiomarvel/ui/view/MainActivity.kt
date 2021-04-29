@@ -1,4 +1,4 @@
-package br.com.digitalhouse.desafiomarvel.view
+package br.com.digitalhouse.desafiomarvel.ui.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
