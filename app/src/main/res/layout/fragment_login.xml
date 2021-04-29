@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/dark_blue"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".authentication.LoginActivity">
+
+    <ImageView
+        android:id="@+id/topRedCard"
+        android:layout_width="0dp"
+        android:layout_height="400dp"
+        android:layout_marginHorizontal="16dp"
+        android:src="@drawable/retangle_radius"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/dark_red" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="16dp"
+        android:autoSizeTextType="uniform"
+        android:gravity="center"
+        android:lines="1"
+        android:text="Welcome to Marvel HQ"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/whiteCard"
+        app:layout_constraintEnd_toEndOf="@+id/topRedCard"
+        app:layout_constraintStart_toStartOf="@id/topRedCard"
+        app:layout_constraintTop_toTopOf="@id/topRedCard"/>
+
+    <ImageView
+        android:id="@+id/whiteCard"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="80dp"
+        android:src="@drawable/retangle_radius"
+        app:layout_constraintBottom_toBottomOf="@id/topRedCard"
+        app:layout_constraintEnd_toEndOf="@id/topRedCard"
+        app:layout_constraintStart_toStartOf="@id/topRedCard"
+        app:layout_constraintTop_toTopOf="@id/topRedCard"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/txtEmail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
+        android:hint="Email"
+        app:layout_constraintEnd_toEndOf="@id/topRedCard"
+        app:layout_constraintTop_toTopOf="@id/whiteCard"
+        app:layout_constraintStart_toStartOf="@id/topRedCard"
+        app:layout_constraintBottom_toTopOf="@id/txtPassword"
+        android:textColorHint="@color/dark_red"
+        app:boxBackgroundColor="@color/white"
+        app:boxStrokeColor="@color/dark_blue"
+        app:hintTextColor="@color/dark_red"
+        app:layout_constraintVertical_chainStyle="packed">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:textColor="@color/dark_blue"
+            android:textSize="18sp"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/txtPassword"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:hint="Password"
+        app:layout_constraintBottom_toTopOf="checkBox"
+        app:layout_constraintEnd_toEndOf="@+id/txtEmail"
+        app:layout_constraintStart_toStartOf="@+id/txtEmail"
+        app:layout_constraintTop_toBottomOf="@+id/txtEmail"
+        android:textColorHint="@color/dark_red"
+        app:boxBackgroundColor="@color/white"
+        app:boxStrokeColor="@color/dark_blue"
+        app:hintTextColor="@color/dark_red">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:textColor="@color/dark_blue"
+            android:textSize="18sp"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:buttonTint="@color/red"
+        android:text="Remember"
+        android:textColor="@color/dark_blue"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/btnLogin"
+        app:layout_constraintEnd_toEndOf="@+id/txtEmail"
+        app:layout_constraintStart_toStartOf="@+id/txtEmail"
+        app:layout_constraintTop_toBottomOf="@+id/txtPassword"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnLogin"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:text="Login"
+        android:textSize="18sp"
+        android:backgroundTint="@color/red"
+        app:iconSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/txvCreate"
+        app:layout_constraintEnd_toEndOf="@+id/txtEmail"
+        app:layout_constraintStart_toStartOf="@+id/txtEmail"
+        app:layout_constraintTop_toBottomOf="@+id/checkBox"/>
+
+    <TextView
+        android:id="@+id/txvCreate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:gravity="center_horizontal"
+        android:text="Create account"
+        android:textColor="@color/dark_blue"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/whiteCard"
+        app:layout_constraintEnd_toEndOf="@+id/txtEmail"
+        app:layout_constraintStart_toStartOf="@+id/txtEmail"
+        app:layout_constraintTop_toBottomOf="@+id/btnLogin"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
