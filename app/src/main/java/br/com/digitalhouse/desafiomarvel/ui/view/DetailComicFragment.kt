@@ -1,61 +1,64 @@
 package br.com.digitalhouse.desafiomarvel.ui.view
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
-import br.com.digitalhouse.desafiomarvel.R
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import br.com.digitalhouse.desafiomarvel.databinding.FragmentDetailComicBinding
+import com.squareup.picasso.Picasso
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [DetailComicFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class DetailComicFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private lateinit var binding: FragmentDetailComicBinding
+    private val args: DetailComicFragmentArgs by navArgs()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_detail_comic, container, false)
-    }
+    ): View {
+        binding = FragmentDetailComicBinding.inflate(inflater, container, false)
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment DetailComicFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            DetailComicFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+        val navController = findNavController()
+
+        val comicTitleText = args.comicResponseResult.title
+        val comicDescriptionText = args.comicResponseResult.description //args.comicDescription
+        val comicPriceText =
+            "$${args.comicResponseResult.prices.first { i -> i.type == "printPrice" }.price.toFloat()}" //"$${args.comicPrice}"
+        val pageCountText =
+            args.comicResponseResult.pageCount.toString() //args.pageCount.toString()
+        val imgUrl =
+            "${args.comicResponseResult.thumbnail.path}.${args.comicResponseResult.thumbnail.extension}" //args.imgUrl
+        val publicationDate =
+            args.comicResponseResult.dates.first { i -> i.type == "focDate" }.date.substring(0, 10)
+
+        //setando os textos em seus respectivos lugares
+        binding.comicTitle.text = comicTitleText
+        binding.comicDescrip.text = comicDescriptionText
+        binding.comicPrice.text = comicPriceText
+        binding.pageCount.text = pageCountText
+        binding.publicationDate.text = publicationDate
+
+        binding.toolbarDetail.setNavigationOnClickListener {
+            navController.navigateUp()
+        }
+
+        binding.bannerImage.setOnClickListener {
+            navController.navigate(
+                DetailComicFragmentDirections.actionDetailComicFragmentToZoomImageFragment(
+                    imgUrl
+                )
+            )
+        }
+
+        //carregando a imagem de fundo
+        Picasso.get().load(imgUrl).fit().centerCrop().into(binding.bannerImage)
+        //carregando o poster da hq
+        Picasso.get().load(imgUrl).fit().centerCrop().into(binding.posterHq)
+
+        return binding.root
     }
 }
