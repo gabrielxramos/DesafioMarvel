@@ -1,60 +1,75 @@
 package br.com.digitalhouse.desafiomarvel.ui.view
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import br.com.digitalhouse.desafiomarvel.R
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.NavHostFragment
+import androidx.recyclerview.widget.GridLayoutManager
+import br.com.digitalhouse.desafiomarvel.databinding.FragmentListComicsBinding
+import br.com.digitalhouse.desafiomarvel.remote.api.MarvelApi
+import br.com.digitalhouse.desafiomarvel.remote.model.ComicsResponse
+import br.com.digitalhouse.desafiomarvel.ui.adapter.ListComicAdapter
+import br.com.digitalhouse.desafiomarvel.ui.view.viewmodel.ListComicViewModel
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+class ListComicsFragment: Fragment(), ListComicAdapter.OnItemClickListener{
 
-/**
- * A simple [Fragment] subclass.
- * Use the [ListComicsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class ListComicsFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+    private val viewModel: ListComicViewModel by viewModels(){
+        object: ViewModelProvider.Factory{
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                return ListComicViewModel(MarvelApi.create()) as T
+            }
         }
     }
 
+    private lateinit var binding: FragmentListComicsBinding
+    private lateinit var comicResponse: ComicsResponse
+
+
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_list_comics, container, false)
+    ): View {
+        binding = FragmentListComicsBinding.inflate(inflater, container, false)
+
+        val comicAdapter = ListComicAdapter(null, this)
+        val recyclerView = binding.recylerComics
+        recyclerView.layoutManager = GridLayoutManager(context, 3)
+        recyclerView.adapter = comicAdapter
+
+        viewModel.comicList.observe(viewLifecycleOwner){
+            Log.i("ComicList", it.toString())
+            comicResponse = it
+            comicAdapter.comicResponse = comicResponse
+            recyclerView.adapter = comicAdapter
+        }
+        viewModel.getSpiderManComics()
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ListComicsFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ListComicsFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun onItemClick(position: Int) {
+        val clickedItem = comicResponse.data.results[position]
+
+        NavHostFragment.findNavController(this).navigate(
+            ListComicsFragmentDirections.actionListComicsFragmentToDetailComicFragment(
+                "${clickedItem.thumbnail.path}.${clickedItem.thumbnail.extension}",
+                clickedItem.title,
+                clickedItem.description ?: "No description.",
+                clickedItem.prices.first { i -> i.type == "printPrice" }.price.toFloat(),
+                clickedItem.pageCount,
+                clickedItem.dates.first{ i -> i.type == "focDate"}.date.substring(0,10),
+                clickedItem
+            )
+        )
     }
+
+
 }
+
+
