@@ -1,9 +1,6 @@
 package br.com.digitalhouse.desafiomarvel.remote.api
 
-import br.com.digitalhouse.desafiomarvel.domain.utils.BASE_URL
-import br.com.digitalhouse.desafiomarvel.domain.utils.HASH
-import br.com.digitalhouse.desafiomarvel.domain.utils.PUBLIC_KEY
-import br.com.digitalhouse.desafiomarvel.domain.utils.TS
+import br.com.digitalhouse.desafiomarvel.domain.utils.*
 import br.com.digitalhouse.desafiomarvel.remote.model.CharactersResponse
 import br.com.digitalhouse.desafiomarvel.remote.model.ComicsResponse
 import okhttp3.OkHttpClient
@@ -16,21 +13,15 @@ import retrofit2.http.Query
 
 interface MarvelApi {
 
-    @GET("characters")
-    suspend fun getCharacter(
-        @Query("name") nameStartWitch: String = "Spider-Man",
-        @Query("apiKey") apiKey: String = PUBLIC_KEY,
-        @Query("hash") hash: String = HASH,
-        @Query("ts") ts: String = TS
-    ): CharactersResponse
-
     @GET("characters/{characterId}/comics")
     suspend fun getComicDateByCharacterId(
         @Path("characterId") characterId: Int,
-        @Query("orderBy") orderBy: String = "-issueNumber",
+        @Query("orderBy") orderBy: String = "-issueNumber", //organiza por numero da hq
         @Query("apikey") apikey: String = PUBLIC_KEY,
         @Query("hash") hash: String = HASH,
-        @Query("ts") ts: String = TS
+        @Query("ts") ts: Int = TS,
+        @Query("limit") limit: Int = LIMIT
+
     ): ComicsResponse
 
     companion object {

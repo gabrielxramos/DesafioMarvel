@@ -26,7 +26,7 @@ class LoginFragment: Fragment(){
         }
 
         binding.txvCreate.setOnClickListener {
-            navController.navigate(R.id.action_registerFragment_to_listComicsFragment)
+            navController.navigate(R.id.action_loginFragment_to_registerFragment)
         }
         return binding.root
     }

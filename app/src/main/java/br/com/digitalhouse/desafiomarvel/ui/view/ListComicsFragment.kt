@@ -30,7 +30,6 @@ class ListComicsFragment: Fragment(), ListComicAdapter.OnItemClickListener{
     private lateinit var binding: FragmentListComicsBinding
     private lateinit var comicResponse: ComicsResponse
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
