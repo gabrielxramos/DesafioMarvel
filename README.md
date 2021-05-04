@@ -6,12 +6,12 @@ Repositório destinado ao desafio do curso de Desenvolvimento Mobile Android min
 ### ScreenShots
 
 <p align="left">
-  <img src="screenshot/1.png" width="200"/>
-  <img src="screenshot/2.png" width="200"/>
-  <img src="screenshot/3.png" width="200"/>
-  <img src="screenshot/4.png" width="200"/>
-  <img src="screenshot/5.png" width="200"/>
-  <img src="screenshot/6.png" width="200"/>
+  <img src="screenshot/1.png" width="250"/>
+  <img src="screenshot/2.png" width="250"/>
+  <img src="screenshot/3.png" width="250"/>
+  <img src="screenshot/4.png" width="250"/>
+  <img src="screenshot/5.png" width="250"/>
+  <img src="screenshot/6.png" width="250"/>
 </p>
   
 ### Preview
