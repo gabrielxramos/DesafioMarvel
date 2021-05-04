@@ -16,7 +16,7 @@ Repositório destinado ao desafio do curso de Desenvolvimento Mobile Android min
   
 ### Preview
 <p align="left">
-  <img src="screenshot/video/desafiomarvel.gif" width="200"/>
+  <img src="screenshot/video/desafiomarvel.gif" width="250"/>
 </p>
 
 ### Requisitos mínimos de entrega
